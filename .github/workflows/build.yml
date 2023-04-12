@@ -31,13 +31,13 @@ jobs:
         run: ./gradlew build
         
       - name: Upload Forge Artifacts
-        uses: actions/upload-artifacts@v3
+        uses: actions/upload-artifact@v3
         with:
           name: Forge Artifacts
           path: forge/build/libs/
       
       - name: Upload Fabric Artifacts
-        uses: actions/upload-artifacts@v3
+        uses: actions/upload-artifact@v3
         with:
           name: Fabric Artifacts
           path: fabric/build/libs/
