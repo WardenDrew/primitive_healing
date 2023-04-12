@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[41,)"
+license = "${license_name}"
+showAsResourcePack = false
+
+[[mods]]
+modId = "primitive_healing"
+authors = "${mod_author}"
+version = "${version}"
+displayName = "${mod_display_name}"
+description = "${mod_description}"
+
+[[dependencies.primitive_healing]]
+modId = "forge"
+mandatory = true
+versionRange = "[41,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.primitive_healing]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19,1.20)"
+ordering = "NONE"
+side = "BOTH"
