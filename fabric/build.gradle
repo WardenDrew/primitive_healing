@@ -29,6 +29,21 @@ loom {
 			ideConfigGenerated(true)
 			runDir("run")
 		}
+		server {
+			server()
+			setConfigName("Fabric Server")
+			ideConfigGenerated(true)
+			runDir("run")
+		}
+		datagenClient {
+			inherit client
+			name 'Data Generation'
+			vmArg '-Dfabric-api.datagen'
+			vmArg "-Dfabric-api.datagen.output-dir=${file('../common/src/main/generated')}"
+			vmArg '-Dfabric-api.datagen.strict-validation'
+
+			runDir "build/datagen"
+		}
 	}
 }
 
