@@ -79,8 +79,8 @@ minecraft {
 //    def buildProps = project.properties.clone()
 //
 //    filesMatching('*.mixins.json') {
-//        expand "refmap_target": "${mod_id}."
-//    }
+////        expand "refmap_target": "${mod_id}."
+////    }
 //
 //    filesMatching(['**/*.json', 'pack.mcmeta', '**/mods.toml']) {
 //        expand buildProps
@@ -89,15 +89,15 @@ minecraft {
 
 processResources {
     from project(':common').sourceSets.main.resources
-    inputs.property 'version', project.version
+    //inputs.property 'version', project.version
 
     def buildProps = project.properties.clone()
 
     filesMatching('*.mixins.json') {
-        expand "refmap_target": "${archivesBaseName}-"
+        expand "refmap_target": "${mod_name}."
     }
 
-    filesMatching(['**/*.json', 'pack.mcmeta']) {
+    filesMatching(['**/*.json', 'pack.mcmeta', '**/mods.toml']) {
         expand buildProps
     }
 }
