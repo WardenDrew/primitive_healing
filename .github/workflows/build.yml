@@ -30,14 +30,20 @@ jobs:
       - name: Build
         run: ./gradlew build
         
-      - name: Upload Forge Artifacts
+      - name: Make folder for artifacts
+        run: mkdir artifacts
+        
+      - name: Enable globbing extensions
+        run: shopt -s extglob
+        
+      - name: Move Forge Artifact
+        run: mv forge/build/libs/+(.+(?<!javadoc|sources).jar) artifacts/
+        
+      - name: Move Fabric Artifact
+        run: mv fabric/build/libs/+(.+(?<!javadoc|sources).jar) artifacts/
+        
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Forge Artifacts
-          path: forge/build/libs/
-      
-      - name: Upload Fabric Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: Fabric Artifacts
-          path: fabric/build/libs/
+          name: Artifacts
+          path: artifacts/
