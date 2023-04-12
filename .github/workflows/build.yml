@@ -1,0 +1,43 @@
+name: Build
+on:
+  workflow_dispatch
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+        
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      
+      - name: Cache Gradle Packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: gradle
+          
+      - name: Chmod Gradle Wrapper
+        run: chmod +x ./gradlew
+        
+      - name: Build
+        run: ./gradlew build
+        
+      - name: Upload Forge Artifacts
+        uses: actions/upload-artifacts@v3
+        with:
+          name: Forge Artifacts
+          path: forge/build/libs/
+      
+      - name: Upload Fabric Artifacts
+        uses: actions/upload-artifacts@v3
+        with:
+          name: Fabric Artifacts
+          path: fabric/build/libs/
