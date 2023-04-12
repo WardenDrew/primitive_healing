@@ -9,6 +9,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       
+      - uses: madhead/read-java-properties@latest
+        id: all
+        with:
+          file: gradle.properties
+          all: true
+      
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
         
@@ -33,14 +39,11 @@ jobs:
       - name: Make folder for artifacts
         run: mkdir artifacts
         
-      - name: Enable globbing extensions
-        run: shopt -s extglob
-        
       - name: Move Forge Artifact
-        run: mv forge/build/libs/+(.+(?<!javadoc|sources).jar) artifacts/
+        run: mv forge/build/libs/${{ steps.all.outputs.mod_name }}-forge-${{ steps.all.outputs.mod_version }}+${{ steps.all.outputs.minecraft_version }}.jar artifacts/
         
       - name: Move Fabric Artifact
-        run: mv fabric/build/libs/+(.+(?<!javadoc|sources).jar) artifacts/
+        run: mv fabric/build/libs/${{ steps.all.outputs.mod_name }}-fabric-${{ steps.all.outputs.mod_version }}+${{ steps.all.outputs.minecraft_version }}.jar artifacts/
         
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
